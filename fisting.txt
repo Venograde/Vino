@@ -1,0 +1,317 @@
+
+local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+
+local Farm = Library:NewWindow("Home")
+
+local FarmSection = Farm:NewSection("Farm")
+
+local plr = game:GetService("Players").LocalPlayer
+
+--Toggles
+_G.Farm = false
+_G.killall = false
+_G.Aura = false
+_G.god = false
+_G.Sound = false
+
+_G.Fall = nil
+_G.GetFunction = nil
+
+
+--Rename 
+if not workspace.map:FindFirstChild("god") then
+	local path = workspace.map.Part:FindFirstChild("TouchInterest")
+	path.Parent.Name = "god"
+end
+
+function killremote(EPlayer)
+	-- goffy ah tables
+	local ohTable5 = {
+		[1] = 8.5,
+		[2] = 1.3,
+		[3] = true,
+		[4] = 4.1850762367248535,
+		[5] = false,
+		[6] = 10000,
+		[7] = 1000
+	}
+	local ohTable6 = {
+		[1] = 0.2,
+		[2] = 0,
+		[3] = false,
+		[4] = false,
+		[5] = game:GetService("Players").LocalPlayer.Backpack["Makarov PM"].GunScript_Server.IgniteScript,
+		[6] = game:GetService("Players").LocalPlayer.Backpack["Makarov PM"].GunScript_Server.IcifyScript,
+		[7] = 100,
+		[8] = 100
+	}
+	local ohTable7 = {
+		[1] = true,
+		[2] = 35,
+		[3] = 3
+	}
+	local ohTable9 = {
+		[1] = false,
+		[2] = {
+			[1] = 1930359546
+		},
+		[3] = 1,
+		[4] = 1.5,
+		[5] = 1,
+		[6] = game:GetService("Players").LocalPlayer.Backpack["Makarov PM"].GunScript_Local.GoreEffect
+	}
+
+	game:GetService("ReplicatedStorage").Remotes.InflictTarget:InvokeServer(game:GetService("Players").LocalPlayer.Backpack["Makarov PM"], game:GetService("Players").LocalPlayer, workspace[EPlayer.Name].Humanoid, workspace[EPlayer.Name].HumanoidRootPart, ohTable5, ohTable6, ohTable7, workspace[EPlayer.Name]["Head"], ohTable9)
+end
+
+function LoudMusic()
+	local args = {
+		[1] = {
+			["Pitch"] = 1,
+			["MaxDistance"] = 100000,
+			["Volume"] = 100,
+			["Silenced"] = false,
+			["SoundId"] = "rbxassetid://7601471436",
+			["Muzzle"] = game.Workspace,
+			["Echo"] = false,
+			["EmitterSize"] = -1
+		}
+	}
+	
+	
+	game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("PlayAudio"):FireServer(unpack(args))
+end
+
+function Alive()
+	local character = plr.Character or plr.Character.Parent
+	return character
+end
+
+function GetMoney(MoneyPath)
+	local char = plr.Character
+	local HRP = char:FindFirstChild("HumanoidRootPart")
+	local UnitCFrame = HRP.CFrame
+	
+	
+	HRP.CFrame = MoneyPath.CFrame + Vector3.new(0, -0.8, 0)
+	
+	task.wait(0.5)
+	fireclickdetector(MoneyPath:FindFirstChildOfClass("ClickDetector"))
+	
+	HRP.CFrame = UnitCFrame
+	
+end
+
+local function ClosestPlayer(range)
+	local char = plr.Character
+
+	local maxdist = range
+	local target
+
+	for i,v in pairs(game:GetService("Players"):GetChildren()) do
+		if v.Name ~= plr.Name then
+			local EChar = v.Character 
+
+			if EChar then
+				local ETorso = EChar:FindFirstChild("Torso")
+				local EHuman = EChar:FindFirstChild("Humanoid")
+
+				local distance = (char:FindFirstChild("Torso").Position - ETorso.Position).Magnitude
+
+				if ETorso and EHuman and EHuman.Health >= 1 and not EChar:FindFirstChild("ForceField") and plr.Team ~= v.Team and distance <= maxdist then
+					target = v
+				end
+				
+			end
+
+		end
+	end
+
+	return target
+end
+
+function KillAll()
+	for i,v in pairs(game:GetService("Players"):GetChildren()) do
+		if v.Name ~= plr.Name then
+			local EChar = v.Character
+
+			if EChar then
+				local EHuman = EChar:FindFirstChild("Humanoid")
+				if EHuman.Health >= 1 and plr.Team ~= v.Team and not EChar:FindFirstChild("ForceField") then
+					killremote(v)
+				end
+			end
+
+
+		end
+	end
+end
+
+function Aura(range)
+	local EPlr = ClosestPlayer(range)
+
+	if EPlr then
+		killremote(EPlr)
+	end
+end
+
+function shop(Item)
+	local ItemName = Item
+	game:GetService("Players").LocalPlayer.PlayerGui.ScreenGui.shop.RemoteEvent:FireServer(ItemName)
+end
+
+function FactoryFarm()
+	local char = plr.Character
+
+    local MetalSpawn = workspace.spawnable
+	local Metal = MetalSpawn:WaitForChild("Ржавый металл")
+
+    --getting 
+	if Metal then
+		char:FindFirstChild("HumanoidRootPart").CFrame = Metal.CFrame + Vector3.new(0,2.5,0)
+		fireproximityprompt(Metal:FindFirstChild("Attachment").ProximityPrompt,1,true)
+	end
+
+	--selling 
+	if plr.Backpack:FindFirstChild("Ржавый металл") then
+		game:GetService("ReplicatedStorage").Events.Factory:FireServer("sell", "rust")
+	end
+
+end
+
+function god(Type)
+	local plr = game.Players.LocalPlayer
+	local char = plr.Character
+
+	local path = workspace.map:FindFirstChild("god")
+	local Root = char:FindFirstChild("Head") 
+	if Type == "start" then
+		if not char:FindFirstChildOfClass("ForceField") then
+			firetouchinterest(Root,path,1)
+			firetouchinterest(Root,path,0)
+		else
+			firetouchinterest(Root,path,0)
+		end
+	else
+		firetouchinterest(Root,path,1)
+	end
+end
+
+function NoFall()
+	local char = plr.Character
+	local Human = char:FindFirstChild("Humanoid")
+
+	if Human and Human.Sit then
+		Human.Sit = false
+	end
+
+end
+
+----------------------------------UI 
+
+FarmSection:CreateToggle("Factory-Farm", function(value)
+	if value then
+		_G.Farm = true
+		while _G.Farm do
+			if Alive() then
+				FactoryFarm()
+			end
+			task.wait()
+		end
+	else
+		_G.Farm = false
+	end
+end)
+
+local Misc = Farm:NewSection("Misc")
+
+
+Misc:CreateToggle("VeryLoudSound", function(value)
+	if value then
+		_G.Sound = true
+		while _G.Sound do
+			LoudMusic()
+			task.wait(0.1)
+		end
+	else
+		_G.Sound = false
+	end
+end)
+
+Misc:CreateToggle("GrabMoney", function(value)
+	
+	if value then
+		_G.GetFunction = game.Workspace.ChildAdded:Connect(function(child)
+			if child.ClassName == "MeshPart" then
+				GetMoney(child)
+			end
+		end)
+	else
+		_G.GetFunction:Disconnect()
+	end
+end)
+
+Misc:CreateToggle("God", function(value)
+	if value then
+		_G.god = true
+		while _G.god do
+			if Alive() then
+				god("start")
+			end
+			task.wait(0.1)
+		end
+	else
+		god("stop")
+		_G.god = false
+	end
+end)
+
+Misc:CreateToggle("NoAttack Fall", function(value)
+	if value then
+		_G.Fall = plr.Character:FindFirstChild("Humanoid"):GetPropertyChangedSignal("Sit"):Connect(function()
+			NoFall()
+		end)
+	else
+		_G.Fall:Disconnect()
+	end
+end)
+
+local Kill = Farm:NewSection("OP")
+
+Kill:CreateButton("Buy Pistol", function()
+	shop("Makarov PM")
+end)
+
+Kill:CreateToggle("Kill-All", function(value)
+	if value then
+		_G.killall = true
+		while _G.killall do
+			if Alive() then
+				KillAll()
+			end
+			task.wait(0.1)
+		end
+	else
+		_G.killall = false
+	end
+end)
+
+_G.AuraRange = 25
+
+Kill:CreateSlider("Kill-Aura range", 0, 80, 25, false, function(value)
+	_G.AuraRange = value
+end)
+
+Kill:CreateToggle("Kill-Aura", function(value)
+	if value then
+		_G.Aura = true
+		while _G.Aura do
+			if Alive() then
+				Aura(_G.AuraRange)
+			end
+			task.wait(0.05)
+		end
+	else
+		_G.Aura = false
+	end
+end)
