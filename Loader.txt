@@ -1,1 +1,19 @@
-helllo
+--[[
+
+..........................                      ..........................
+    Yea mega gay loader/ and i grab your data      SUSSY SCRIPT BEST!
+..........................                      ..........................
+
+--]]
+
+local lp= game.Players.LocalPlayer
+local placeid = game.PlaceId
+
+if placeid == 15564836976 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Venograde/Vino/main/bigcock.txt"))() --Chaos(Remastered)
+elseif placeid == 15582998794 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Venograde/Vino/main/bro.txt"))() --Slovo Pacana(Favork Studio)
+    
+else
+    lp:Kick("You Banned For Cheating(game not supported)")
+end 
