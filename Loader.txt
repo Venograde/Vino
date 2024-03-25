@@ -10,7 +10,7 @@ local lp= game.Players.LocalPlayer
 local placeid = game.PlaceId
 
 if placeid == 15564836976 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Venograde/Vino/main/bigcock.txt"))() --Chaos(Remastered)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Venograde/Vino/main/mamamia.txt"))() --Chaos(Remastered)
 elseif placeid == 15582998794 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Venograde/Vino/main/bro.txt"))() --Slovo Pacana(Favork Studio)
     
