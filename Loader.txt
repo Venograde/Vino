@@ -13,7 +13,8 @@ if placeid == 15564836976 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Venograde/Vino/main/mamamia.txt"))() --Chaos(Remastered)
 elseif placeid == 15582998794 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Venograde/Vino/main/bro.txt"))() --Slovo Pacana(Favork Studio)
-    
+elseif placeid == 6441847031 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Venograde/Vino/main/koko.txt"))() -- Chaos(Katana)
 else
     lp:Kick("You Banned For Cheating(game not supported)")
 end 
