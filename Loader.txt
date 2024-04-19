@@ -1,11 +1,3 @@
---[[
-
-..........................                      ..........................
-    Yea mega gay loader/ and i grab your data      SUSSY SCRIPT BEST!
-..........................                      ..........................
-
---]]
-
 local lp= game.Players.LocalPlayer
 local placeid = game.PlaceId
 
@@ -17,8 +9,9 @@ elseif placeid == 15582998794 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Venograde/Vino/main/bro.txt"))() --Slovo Pacana(Favork Studio)
 elseif placeid == 6441847031 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Venograde/Vino/main/koko.txt"))() -- Chaos(Katana)
-elseif string.find(GetName.Name,"Project") then
+elseif string.find(GetName.Name,"Project") or string.find(GetName.Name,"Duels") then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Venograde/Vino/main/smashs.txt"))() --Project Smash
 else
     print('not support or bug')
 end 
+
